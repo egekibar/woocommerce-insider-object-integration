@@ -29,13 +29,20 @@ class Insider
             if ("Checkout" == $this->get_page_type())
                 $this->set('checkout', $this->_checkout());
 
-            if ("Confirmation" == $this->get_page_type())
+            if ("Confirmation" == $this->get_page_type()){
                 $this->set('confirmation', $this->_confirmation());
+                $this->set('transaction', $this->_confirmation());
+            }
+
+            if ("Search" == $this->get_page_type())
+                $this->set('search', $this->_listing());
 
             //@dd($this->object);
+
+            $this->script();
         });
 
-        add_action('wp_footer', [$this, 'script']);
+        //add_action('wp_footer', [$this, 'script']);
     }
 
     public function _confirmation() {
@@ -47,12 +54,12 @@ class Insider
         foreach ($order->get_items() as $item)
             $products[] = [
                 'product' => $this->_product($item->get_product_id()),
-                'subtotal' => $item->get_subtotal(),
+                'subtotal' => (double) $item->get_subtotal(),
                 'quantity' => $item->get_quantity()
             ];
 
         return [
-            'order_id' => $order_id,
+            'order_id' => (string) $order_id,
             'currency' => 'TRY',
             'total' => $order->get_total(),
             'shipping_cost' => $order->get_shipping_total(),
@@ -62,9 +69,7 @@ class Insider
                 'district' => $order->get_shipping_address_1(),
             ],
             'payment_type' => $order->get_payment_method_title(),
-            'line_items' => [
-                $products
-            ],
+            'line_items' => $products
         ];
     }
 
@@ -84,7 +89,7 @@ class Insider
 
         return [
             'currency' => 'TRY',
-            'total' => $cart->total,
+            'total' => (double) $cart->total,
             'shipping_cost' => $cart->shipping_total,
             'quantity' => $cart->get_cart_contents_count(),
             'subtotal' => $cart->subtotal,
@@ -133,7 +138,7 @@ class Insider
 
     public function _listing() {
         woocommerce_product_loop_start();
-            $items['items'][] = $this->_product();
+        $items['items'][] = $this->_product();
         woocommerce_product_loop_end();
 
         return $items;
@@ -158,18 +163,18 @@ class Insider
             $tags[] = $tag->name;
         }
 
-       return [
+        return [
             "name" => $product->get_name(),
-            "id" => $id,
+            "id" => (string) $id,
             "taxonomy" => array_merge($categories ?? [], $tags ?? []) ?? [],
             "currency" => "TRY",
-            "unit_price" => $product->get_regular_price(),
-            "unit_sale_price" => $product->get_sale_price(),
+            "unit_price" => (double) $product->get_regular_price(),
+            "unit_sale_price" => (double) $product->get_sale_price(),
             "url" => get_permalink($id),
             "stock" => $product->get_stock_quantity(),
             "color" => "",
             "size" => "",
-            "product_image_url" => get_the_post_thumbnail_url($id),
+            "product_image_url" => get_the_post_thumbnail_url($id) ?? wc_placeholder_img_src(),
             "custom" => [],
         ];
     }
@@ -181,7 +186,7 @@ class Insider
     }
 
     public function get_page_type($type = 8) {
-        if (is_home() || "/" == $_SERVER['REQUEST_URI'])
+        if (is_front_page())
             $type = 1;
 
         if (is_product())
