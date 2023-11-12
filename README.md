@@ -1,9 +1,5 @@
 **Woocommerce Insider Object Plugin**
 
-**Insider Object Nedir?**
-
-Daha fazla bilgi için [Insider Object Nedir?](#) sayfasına göz atabilirsiniz.
-
 **Kurulum:**
 
 1. [Buradan](https://github.com/egekibar/woocommerce-insider-object-integration/releases) en son sürümü zip olarak indirin.
@@ -28,7 +24,7 @@ Daha fazla bilgi için [Insider Object Nedir?](#) sayfasına göz atabilirsiniz.
 
 **Insider Object Integration Hakkında Daha Fazla Bilgi:**
 
-Insider Object Integration Wizard, Insider objesinin alt nesnelerini ve endüstri seçiminize dayalı olarak gerekli anahtarları ve veri türlerini içeren örnek kodları sunar.
+Insider Object Integration, Insider objesinin alt nesnelerini ve endüstri seçiminize dayalı olarak gerekli anahtarları ve veri türlerini içeren örnek kodları sunar.
 
 **Önerilen Özel Alanlar:**
 
