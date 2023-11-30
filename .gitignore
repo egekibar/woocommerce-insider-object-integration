@@ -1,6 +1,5 @@
 .idea
-vendor
 update
-composer.lock
+temp
 update_cache
 .DS_Store
