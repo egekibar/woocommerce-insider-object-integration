@@ -1,2 +1,6 @@
-
+.idea
+vendor
+update
+composer.lock
+update_cache
 .DS_Store
