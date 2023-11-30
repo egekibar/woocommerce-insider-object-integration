@@ -2,7 +2,7 @@
 
 /**
  * Plugin Name: Insider Object Integration
- * Version: 1.0
+ * Version: 1.1
  * Author: egekibar
  * Author URI: https://kibar.dev/
  **/

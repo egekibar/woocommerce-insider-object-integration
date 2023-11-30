@@ -16,8 +16,6 @@ class Insider
     }
 
     public function run() {
-//        $this->check_plugin_update();
-
         if ($this->check_plugin_requirements())
             return;
 
@@ -73,7 +71,8 @@ class Insider
         $plugin_file = 'woocommerce-insider-object-plugin/insider-object.php';
 
         if ($config = $update->config())
-            $transient->response[$plugin_file] = $config;
+            if (version_compare($config->new_version, $transient->checked[$plugin_file], '>'))
+                $transient->response[$plugin_file] = $config;
 
         return $transient;
     }

@@ -87,7 +87,7 @@ class Page
         $data["surname"] = $user->last_name;
         $data["username"] = $user->display_name;
         $data["email"] = $user->billing_email;
-        $data["phone_number"] = $user->billing_phone;
+        $data["phone_number"] = "+90".substr(intval(str_replace([' ', '+90'], '', $user->billing_phone)), 0, 10);
 
         $data['gdpr_optin'] = true; //get_user_meta(get_current_user_id(), 'gdpr_optin', true) === "true";
         $data['email_optin'] = get_user_meta(get_current_user_id(), 'email_optin', true) === "true";

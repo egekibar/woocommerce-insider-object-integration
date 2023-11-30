@@ -34,7 +34,9 @@ class Update
 
         $zipFilePath = dirname(__DIR__, 1)."/update/{$json_data['tag_name']}.zip";
 
-        if (!file_exists($zipFilePath)){
+        $plugin_data = (object) get_plugin_data(dirname(__DIR__, 1)."/insider-object.php");
+
+        if (!file_exists($zipFilePath) && version_compare($json_data['tag_name'], $plugin_data->Version, '>')){
             $temp_dir = dirname(__DIR__, 1)."/temp";
 
             if (!is_dir($temp_dir))
